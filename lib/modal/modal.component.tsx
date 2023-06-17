@@ -2,62 +2,62 @@ import { onCleanup, onMount, splitProps } from 'solid-js';
 import type {
   ModalComponent,
   ModalRootElement,
-  ModalProps,
+  ModalAttrsAndProps,
 } from './modal.types';
 import './modal.styles.css';
 
 export const Modal: ModalComponent = (attrsAndProps) => {
-  const { 0: props, 1: attrs } = splitProps(attrsAndProps, [
+  const [props, restAttrs] = splitProps(attrsAndProps, [
     'shouldCloseOnOverlayClick',
     'onOpen',
-    'onClose',
-    'onCancel',
   ]);
 
   const attributeName_open = 'open';
 
-  let ref = attrs?.ref as ModalRootElement;
+  let ref = restAttrs?.ref as ModalRootElement;
 
   const observer = new MutationObserver((mutationRecords) => {
-    for (let i = 0; i < mutationRecords.length; i++) {
-      const mutationRecord = mutationRecords[i];
-      const attributeName = mutationRecord.attributeName;
+    const mutationRecord = mutationRecords[0];
+    const attributeName = mutationRecord.attributeName;
 
-      if (
-        mutationRecord.type === 'attributes' &&
-        attributeName === attributeName_open
-      ) {
-        const attributeValue = (mutationRecord.target as Element).getAttribute(
-          attributeName
-        );
+    if (
+      mutationRecord.type === 'attributes' &&
+      attributeName === attributeName_open
+    ) {
+      const attributeValue = (mutationRecord.target as Element).getAttribute(
+        attributeName
+      );
 
-        // hacky, hacky stuff
-        if (attributeValue === '') {
-          if (props?.onOpen != null) {
-            props.onOpen();
-          }
+      // hacky, hacky stuff
+      if (attributeValue === '') {
+        if (props?.onOpen != null) {
+          props.onOpen();
         }
       }
     }
   });
 
-  const onClose: (this: HTMLDialogElement, event: Event) => any = function (
-    event
-  ) {
-    // console.log('modal "close" event:', event);
-
-    if (props?.onClose != null) {
-      props.onClose(event);
+  const onClick: ModalAttrsAndProps['onClick'] = (event) => {
+    if (
+      event.offsetX < 0 ||
+      event.offsetX > (event.target as HTMLElement).offsetWidth ||
+      event.offsetY < 0 ||
+      event.offsetY > (event.target as HTMLElement).offsetHeight
+    ) {
+      ref.close();
     }
-  };
 
-  const onCancel: (this: HTMLDialogElement, event: Event) => any = function (
-    event
-  ) {
-    // console.log('modal "cancel" event:', event);
+    if (restAttrs?.onClick != null) {
+      if (Array.isArray(restAttrs.onClick)) {
+        const handler = restAttrs.onClick[0];
+        const data = restAttrs.onClick[1];
 
-    if (props?.onCancel != null) {
-      props.onCancel(event);
+        handler(data, event);
+      }
+
+      if (typeof restAttrs?.onClick === 'function') {
+        restAttrs.onClick(event);
+      }
     }
   };
 
@@ -68,14 +68,10 @@ export const Modal: ModalComponent = (attrsAndProps) => {
       attributes: true,
       attributeFilter: [attributeName_open],
     });
-    ref.addEventListener('close', onClose);
-    ref.addEventListener('cancel', onCancel);
   });
 
   onCleanup(() => {
     observer.disconnect();
-    ref.removeEventListener('close', onClose);
-    ref.removeEventListener('cancel', onCancel);
   });
 
   const shouldCloseOnOverlayClick = () =>
@@ -83,13 +79,16 @@ export const Modal: ModalComponent = (attrsAndProps) => {
 
   return (
     <dialog
-      {...attrs}
+      {...restAttrs}
       /* ----------------- omitted attrs ----------------- */
       // @ts-ignore
       open={null}
       /* ----------------- omitted attrs ----------------- */
       ref={(el) => (ref = el)}
-      class={`${attrs?.class || ''} solid-js-modal`}
+      class={`${restAttrs?.class || ''} solid-js-modal`}
+      role={restAttrs?.role || 'dialog'}
+      aria-modal={restAttrs?.['aria-modal'] || true}
+      onClick={(event) => onClick(event)}
     />
   );
 };
