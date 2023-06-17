@@ -45,5 +45,10 @@
   },
   "dependencies": {
     "solid-js": "^1.7.6"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "solid-js@1.7.6": "patches/solid-js@1.7.6.patch"
+    }
   }
 }
