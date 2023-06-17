@@ -1,0 +1,49 @@
+{
+  "name": "solid-js-modal",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Modal component.",
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "solid",
+    "solid-js",
+    "solid-js-modal",
+    "modal",
+    "modal window"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.umd.js",
+      "import": "./dist/index.es.js"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "concurrently \"rm -rf ./dist\" \"pnpm build:watch\" \"vite\"",
+    "build": "vite build",
+    "build:watch": "vite build --watch"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.8",
+    "@types/node": "^20.3.0",
+    "concurrently": "^8.2.0",
+    "solid-devtools": "^0.27.2",
+    "solid-start": "^0.2.26",
+    "solid-start-node": "^0.2.26",
+    "typescript": "^5.1.3",
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0"
+  },
+  "dependencies": {
+    "solid-js": "^1.7.6"
+  }
+}
