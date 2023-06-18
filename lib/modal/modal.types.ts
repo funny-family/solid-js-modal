@@ -16,6 +16,9 @@ type ModalAttrs = Omit<
   JSX.HTMLElementTags['dialog'],
   /* ----------------- omitted attrs ----------------- */
   | 'open'
+  | 'textContent'
+  | 'innerHTML'
+  | 'innerText'
   /* ----------------- omitted attrs ----------------- */
   /* ----------------- overwritten attrs ----------------- */
   | 'ref'
@@ -27,18 +30,10 @@ type ModalAttrs = Omit<
 export type ModalProps = {
   shouldCloseOnOverlayClick?: boolean,
   onOpen?: () => void;
-  /**
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close_event
-   */
-  onClose?: (event: Event) => void;
-  /**
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/cancel_event
-   */
-  onCancel?: (event: Event) => void;
 };
 
 type ModalCustomAttrs = JSX.CustomAttributes<ModalRootElement>;
 
-type ModalAttrsAndProps = ModalAttrs & ModalProps & ModalCustomAttrs;
+export type ModalAttrsAndProps = ModalAttrs & ModalProps & ModalCustomAttrs;
 
 export type ModalComponent = Component<ModalAttrsAndProps>;

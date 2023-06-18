@@ -1,4 +1,4 @@
-import { onCleanup, onMount, splitProps } from 'solid-js';
+import { Show, onCleanup, onMount, splitProps } from 'solid-js';
 import type {
   ModalComponent,
   ModalRootElement,
@@ -7,14 +7,14 @@ import type {
 import './modal.styles.css';
 
 export const Modal: ModalComponent = (attrsAndProps) => {
-  const [props, restAttrs] = splitProps(attrsAndProps, [
+  const [props, attrs] = splitProps(attrsAndProps, [
     'shouldCloseOnOverlayClick',
     'onOpen',
   ]);
 
   const attributeName_open = 'open';
 
-  let ref = restAttrs?.ref as ModalRootElement;
+  let ref = attrs?.ref as ModalRootElement;
 
   const observer = new MutationObserver((mutationRecords) => {
     const mutationRecord = mutationRecords[0];
@@ -38,25 +38,27 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   });
 
   const onClick: ModalAttrsAndProps['onClick'] = (event) => {
-    if (
-      event.offsetX < 0 ||
-      event.offsetX > (event.target as HTMLElement).offsetWidth ||
-      event.offsetY < 0 ||
-      event.offsetY > (event.target as HTMLElement).offsetHeight
-    ) {
-      ref.close();
+    if (props?.shouldCloseOnOverlayClick || true) {
+      if (
+        event.offsetX < 0 ||
+        event.offsetX > (event.target as HTMLElement).offsetWidth ||
+        event.offsetY < 0 ||
+        event.offsetY > (event.target as HTMLElement).offsetHeight
+      ) {
+        ref.close();
+      }
     }
 
-    if (restAttrs?.onClick != null) {
-      if (Array.isArray(restAttrs.onClick)) {
-        const handler = restAttrs.onClick[0];
-        const data = restAttrs.onClick[1];
+    if (attrs?.onClick != null) {
+      if (Array.isArray(attrs.onClick)) {
+        const handler = attrs.onClick[0];
+        const data = attrs.onClick[1];
 
         handler(data, event);
       }
 
-      if (typeof restAttrs?.onClick === 'function') {
-        restAttrs.onClick(event);
+      if (typeof attrs.onClick === 'function') {
+        attrs.onClick(event);
       }
     }
   };
@@ -64,7 +66,7 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   onMount(() => {
     console.log(1231321, ref, { ref });
 
-    observer.observe(ref, {
+    observer.observe(ref as unknown as Node, {
       attributes: true,
       attributeFilter: [attributeName_open],
     });
@@ -74,21 +76,23 @@ export const Modal: ModalComponent = (attrsAndProps) => {
     observer.disconnect();
   });
 
-  const shouldCloseOnOverlayClick = () =>
-    props?.shouldCloseOnOverlayClick || false;
-
   return (
     <dialog
-      {...restAttrs}
-      /* ----------------- omitted attrs ----------------- */
-      // @ts-ignore
-      open={null}
-      /* ----------------- omitted attrs ----------------- */
+      {...attrs}
+      // {...rrr}
       ref={(el) => (ref = el)}
-      class={`${restAttrs?.class || ''} solid-js-modal`}
-      role={restAttrs?.role || 'dialog'}
-      aria-modal={restAttrs?.['aria-modal'] || true}
+      class={`${attrs?.class || ''} solid-js-modal`}
+      role={attrs?.role || 'dialog'}
+      aria-modal={attrs?.['aria-modal'] || true}
       onClick={(event) => onClick(event)}
-    />
+      /* ----------------- omitted attrs ----------------- */
+      open={null}
+      textContent={null}
+      innerHTML={null}
+      innerText={null}
+      /* ----------------- omitted attrs ----------------- */
+    >
+      <Show when={true}>{attrs?.children}</Show>
+    </dialog>
   );
 };
