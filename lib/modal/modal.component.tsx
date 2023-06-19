@@ -1,4 +1,4 @@
-import { Show, onCleanup, onMount, splitProps } from 'solid-js';
+import { Show, createSignal, onCleanup, onMount, splitProps } from 'solid-js';
 import type {
   ModalComponent,
   ModalRootElement,
@@ -7,10 +7,25 @@ import type {
 import './modal.styles.css';
 
 export const Modal: ModalComponent = (attrsAndProps) => {
-  const [props, attrs] = splitProps(attrsAndProps, [
+  const { 0: props, 1: attrs } = splitProps(attrsAndProps, [
     'shouldCloseOnOverlayClick',
+    'shouldChildrenRemainMounted',
     'onOpen',
   ]);
+
+  const shouldChildrenRemainMounted = () =>
+    props?.shouldChildrenRemainMounted == null
+      ? true
+      : props.shouldChildrenRemainMounted;
+  const shouldCloseOnOverlayClick = () =>
+    props?.shouldCloseOnOverlayClick == null
+      ? true
+      : props.shouldCloseOnOverlayClick;
+
+  const {
+    0: shouldChildrenRemainMountedState,
+    1: setShouldChildrenRemainMountedState,
+  } = createSignal(shouldChildrenRemainMounted());
 
   const attributeName_open = 'open';
 
@@ -28,8 +43,14 @@ export const Modal: ModalComponent = (attrsAndProps) => {
         attributeName
       );
 
-      // hacky, hacky stuff
+      // hacky, hacky stuff (detect if modal open)
       if (attributeValue === '') {
+        console.log('open');
+
+        if (shouldChildrenRemainMounted() === false) {
+          setShouldChildrenRemainMountedState(true);
+        }
+
         if (props?.onOpen != null) {
           props.onOpen();
         }
@@ -38,7 +59,7 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   });
 
   const onClick: ModalAttrsAndProps['onClick'] = (event) => {
-    if (props?.shouldCloseOnOverlayClick || true) {
+    if (shouldCloseOnOverlayClick()) {
       if (
         event.offsetX < 0 ||
         event.offsetX > (event.target as HTMLElement).offsetWidth ||
@@ -63,6 +84,27 @@ export const Modal: ModalComponent = (attrsAndProps) => {
     }
   };
 
+  const onClose: ModalAttrsAndProps['onClose'] = (event) => {
+    console.log('close');
+
+    if (shouldChildrenRemainMounted() === false) {
+      setShouldChildrenRemainMountedState(false);
+    }
+
+    if (attrs?.onClose != null) {
+      if (Array.isArray(attrs.onClose)) {
+        const handler = attrs.onClose[0];
+        const data = attrs.onClose[1];
+
+        handler(data, event);
+      }
+
+      if (typeof attrs.onClose === 'function') {
+        attrs.onClose(event);
+      }
+    }
+  };
+
   onMount(() => {
     console.log(1231321, ref, { ref });
 
@@ -79,20 +121,20 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   return (
     <dialog
       {...attrs}
-      // {...rrr}
       ref={(el) => (ref = el)}
       class={`${attrs?.class || ''} solid-js-modal`}
       role={attrs?.role || 'dialog'}
       aria-modal={attrs?.['aria-modal'] || true}
       onClick={(event) => onClick(event)}
-      /* ----------------- omitted attrs ----------------- */
+      onClose={(event) => onClose(event)}
+      /* ------------------------- omitted attrs ------------------------- */
       open={null}
       textContent={null}
       innerHTML={null}
       innerText={null}
-      /* ----------------- omitted attrs ----------------- */
+      /* ------------------------- omitted attrs ------------------------- */
     >
-      <Show when={true}>{attrs?.children}</Show>
+      <Show when={shouldChildrenRemainMountedState()}>{attrs?.children}</Show>
     </dialog>
   );
 };
