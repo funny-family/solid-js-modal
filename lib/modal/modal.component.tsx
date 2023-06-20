@@ -9,23 +9,13 @@ import './modal.styles.css';
 export const Modal: ModalComponent = (attrsAndProps) => {
   const { 0: props, 1: attrs } = splitProps(attrsAndProps, [
     'shouldCloseOnOverlayClick',
-    'shouldChildrenRemainMounted',
     'onOpen',
   ]);
 
-  const shouldChildrenRemainMounted = () =>
-    props?.shouldChildrenRemainMounted == null
-      ? true
-      : props.shouldChildrenRemainMounted;
   const shouldCloseOnOverlayClick = () =>
     props?.shouldCloseOnOverlayClick == null
       ? true
       : props.shouldCloseOnOverlayClick;
-
-  const {
-    0: shouldChildrenRemainMountedState,
-    1: setShouldChildrenRemainMountedState,
-  } = createSignal(shouldChildrenRemainMounted());
 
   const attributeName_open = 'open';
 
@@ -45,10 +35,6 @@ export const Modal: ModalComponent = (attrsAndProps) => {
 
       // hacky, hacky stuff (detect if modal open)
       if (attributeValue === '') {
-        if (shouldChildrenRemainMounted() === false) {
-          setShouldChildrenRemainMountedState(true);
-        }
-
         if (props?.onOpen != null) {
           props.onOpen();
         }
@@ -83,10 +69,6 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   };
 
   const onClose: ModalAttrsAndProps['onClose'] = (event) => {
-    if (shouldChildrenRemainMounted() === false) {
-      setShouldChildrenRemainMountedState(false);
-    }
-
     if (attrs?.onClose != null) {
       if (Array.isArray(attrs.onClose)) {
         const handler = attrs.onClose[0];
@@ -123,12 +105,7 @@ export const Modal: ModalComponent = (attrsAndProps) => {
       onClose={(event) => onClose(event)}
       /* ------------------------- omitted attrs ------------------------- */
       open={null}
-      textContent={null}
-      innerHTML={null}
-      innerText={null}
       /* ------------------------- omitted attrs ------------------------- */
-    >
-      <Show when={shouldChildrenRemainMountedState()}>{attrs?.children}</Show>
-    </dialog>
+    />
   );
 };

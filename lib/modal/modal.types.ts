@@ -4,9 +4,6 @@ export type ModalRootElement = Omit<
   HTMLDialogElement,
   /* ------------------------- omitted attrs ------------------------- */
   | 'show'
-  | 'textContent'
-  | 'innerText'
-  | 'innerHTML'
   /* ------------------------- omitted attrs ------------------------- */
   /* ------------------------- overwritten attrs ------------------------- */
   | 'open'
@@ -19,9 +16,6 @@ type ModalAttrs = Omit<
   JSX.HTMLElementTags['dialog'],
   /* --------------------------------- omitted attrs ------------------------- */
   | 'open'
-  | 'textContent'
-  | 'innerText'
-  | 'innerHTML'
   /* --------------------------------- omitted attrs ------------------------- */
   /* ------------------------- overwritten attrs ------------------------- */
   | 'ref'
@@ -32,7 +26,6 @@ type ModalAttrs = Omit<
 
 export type ModalProps = {
   shouldCloseOnOverlayClick?: boolean;
-  shouldChildrenRemainMounted?: boolean;
   onOpen?: () => void;
 };
 
