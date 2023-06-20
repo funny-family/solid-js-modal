@@ -1,4 +1,4 @@
-import { Show, createSignal, onCleanup, onMount, splitProps } from 'solid-js';
+import { onCleanup, onMount, splitProps } from 'solid-js';
 import type {
   ModalComponent,
   ModalRootElement,
