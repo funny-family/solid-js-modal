@@ -45,8 +45,6 @@ export const Modal: ModalComponent = (attrsAndProps) => {
 
       // hacky, hacky stuff (detect if modal open)
       if (attributeValue === '') {
-        console.log('open');
-
         if (shouldChildrenRemainMounted() === false) {
           setShouldChildrenRemainMountedState(true);
         }
@@ -85,8 +83,6 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   };
 
   const onClose: ModalAttrsAndProps['onClose'] = (event) => {
-    console.log('close');
-
     if (shouldChildrenRemainMounted() === false) {
       setShouldChildrenRemainMountedState(false);
     }
@@ -106,8 +102,6 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   };
 
   onMount(() => {
-    console.log(1231321, ref, { ref });
-
     observer.observe(ref as unknown as Node, {
       attributes: true,
       attributeFilter: [attributeName_open],
