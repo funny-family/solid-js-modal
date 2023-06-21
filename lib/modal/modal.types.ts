@@ -4,6 +4,9 @@ export type ModalRootElement = Omit<
   HTMLDialogElement,
   /* ------------------------- omitted attrs ------------------------- */
   | 'show'
+  | 'textContent'
+  | 'innerText'
+  | 'innerHTML'
   /* ------------------------- omitted attrs ------------------------- */
   /* ------------------------- overwritten attrs ------------------------- */
   | 'open'
@@ -16,6 +19,9 @@ type ModalAttrs = Omit<
   JSX.HTMLElementTags['dialog'],
   /* --------------------------------- omitted attrs ------------------------- */
   | 'open'
+  | 'textContent'
+  | 'innerText'
+  | 'innerHTML'
   /* --------------------------------- omitted attrs ------------------------- */
   /* ------------------------- overwritten attrs ------------------------- */
   | 'ref'
@@ -25,7 +31,25 @@ type ModalAttrs = Omit<
 };
 
 export type ModalProps = {
-  shouldCloseOnOverlayClick?: boolean;
+  /**
+   * @description
+   * Allow to close modal on background click.
+   */
+  shouldCloseOnBackgroundClick?: boolean;
+  /**
+   * @description
+   * Always keep the children in the DOM.
+   */
+  keepMounted?: boolean;
+  /**
+   * @description
+   * Callback fired when the backdrop is clicked.
+   */
+  onBackdropClick?: () => void;
+  /**
+   * @description
+   * Callback fired the modal is opened.
+   */
   onOpen?: () => void;
 };
 
