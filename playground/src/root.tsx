@@ -1,6 +1,5 @@
 import { Show, createSignal, onMount } from 'solid-js';
 import { Body, Head, Html, Meta, Scripts, Title } from 'solid-start';
-// import { Modal } from '../../dist/index.es';
 import { Modal } from '../../lib/modal';
 import type { ModalRootElement } from '../../lib/modal';
 import './root.css';
