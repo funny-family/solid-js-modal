@@ -2,15 +2,25 @@
   "name": "solid-js-modal",
   "private": false,
   "version": "1.0.0",
-  "description": "Modal component.",
-  "author": "",
+  "description": "Simple \"dialog\" element based \"modal\" component for Solid-js",
+  "author": "funny-family <https://github.com/funny-family>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funny-family/solid-js-modal.git"
+  },
+  "homepage": "https://github.com/funny-family/solid-js-modal#readme",
+  "bugs": {
+    "url": "https://github.com/funny-family/solid-js-modal/issues"
+  },
   "license": "MIT",
   "keywords": [
     "solid",
+    "solid js",
     "solid-js",
     "solid-js-modal",
     "modal",
-    "modal window"
+    "modal window",
+    "dialog"
   ],
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -22,28 +32,28 @@
       "require": "./dist/index.umd.js",
       "import": "./dist/index.es.js"
     },
+    "./dist/style.css": "./dist/style.css",
     "./*": "./*"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "concurrently \"rm -rf ./dist\" \"pnpm build:watch\" \"vite\"",
+    "dev": "concurrently \"rm -rf ./dist\" \"pnpm build:watch\"",
     "build": "vite build",
-    "build:watch": "vite build --watch"
+    "build:watch": "vite build --watch",
+    "release": "release-it"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.8",
     "@types/node": "^20.3.0",
     "concurrently": "^8.2.0",
-    "solid-devtools": "^0.27.2",
-    "solid-start": "^0.2.26",
-    "solid-start-node": "^0.2.26",
+    "release-it": "^15.11.0",
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
-    "vite-plugin-dts": "^2.3.0"
+    "vite-plugin-dts": "^2.3.0",
+    "vite-plugin-solid": "^2.7.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "solid-js": "^1.7.6"
   },
   "pnpm": {

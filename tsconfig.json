@@ -14,9 +14,9 @@
     "noEmit": true,
     "allowJs": true,
     "outDir": "dist",
-    "typeRoots": ["./dist/index.d.ts"],
+    "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
     "types": ["vite/client"]
   },
-  "include": ["lib", "playground", "vite.config.*"],
-  "exclude": ["playground/public/**/*", "dist/**/*", "node_modules", "vendor"]
+  "include": ["lib/**/*", "vite.config.*"],
+  "exclude": ["dist/**/*", "node_modules", "vendor"]
 }

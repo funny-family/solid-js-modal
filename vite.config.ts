@@ -1,30 +1,13 @@
 import { defineConfig } from 'vite';
-import solidDevtools from 'solid-devtools/vite';
-import solidStart from 'solid-start/vite';
-import path from 'node:path';
+import solidPlugin from 'vite-plugin-solid';
 import dts from 'vite-plugin-dts';
+import path from 'node:path';
 
 export default defineConfig({
-  server: {
-    port: 6783,
-    strictPort: true,
-  },
   plugins: [
-    solidDevtools({
-      autoname: true,
-      locator: {
-        targetIDE: 'vscode',
-        componentLocation: true,
-        jsxLocation: true,
-      },
-    }),
-    solidStart({
-      ssr: false,
-      hot: true,
-      appRoot: path.resolve(__dirname, './playground/src/'),
-      rootEntry: path.resolve(__dirname, './playground/src/root.tsx'),
-      clientEntry: path.resolve(__dirname, './playground/src/entry-client.tsx'),
-      serverEntry: path.resolve(__dirname, './playground/src/entry-server.tsx'),
+    solidPlugin({
+      include: 'lib/**/*',
+      extensions: ['jsx', 'tsx', 'js', 'ts'],
     }),
     dts({
       insertTypesEntry: true,
@@ -38,13 +21,17 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
+      input: {
+        entry: path.resolve(__dirname, './lib/modal/index.ts'),
+      },
       external: ['solid-js'],
       output: {
+        exports: 'named',
         globals: {
           'solid-js': 'solidJs',
         },
       },
     },
-    sourcemap: true,
+    emptyOutDir: false,
   },
 });
