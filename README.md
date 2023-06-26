@@ -21,7 +21,8 @@ pnpm add solid-js-modal
 
 ### Examples:
 ```tsx
-import { Modal } from 'solid-js-modal;'
+import { Modal } from 'solid-js-modal';
+import 'solid-js-modal/dist/style.css';
 // ...
 let modalRef;
 // ...
@@ -40,7 +41,8 @@ let modalRef;
 ```
 
 ```tsx
-import { Modal } from 'solid-js-modal;'
+import { Modal } from 'solid-js-modal';
+import 'solid-js-modal/dist/style.css';
 // ...
 let modalRef;
 // ...
@@ -66,7 +68,8 @@ let modalRef;
 
 ```tsx
 import { createSignal, Show } from 'solid-js';
-import { Modal } from 'solid-js-modal;'
+import { Modal } from 'solid-js-modal';
+import 'solid-js-modal/dist/style.css';
 // ...
 let modalRef;
 const { 0: isVisible, 1: setIsVisibleState } = createSignal(false);
