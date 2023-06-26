@@ -11,7 +11,6 @@ Simple "dialog" element based "modal" component for Solid-js
 ## Quick start
 
 ### Installation:
-
 ```bash
 npm i solid-js-modal
 # or
@@ -34,13 +33,7 @@ let modalRef;
     Open modal
   </button>
 
-  <Modal ref={modalRef} shouldCloseOnBackgroundClick={false}>
-    <button
-      type="button"
-      onClick={() => modalRef.close()}
-    >
-      Close modal
-    </button>
+  <Modal ref={modalRef}>
     <p>This is modal content</p>
   </Modal>
 </div>
@@ -59,7 +52,13 @@ let modalRef;
     Open modal
   </button>
 
-  <Modal ref={modalRef}>
+  <Modal ref={modalRef} shouldCloseOnBackgroundClick={false}>
+    <button
+      type="button"
+      onClick={() => modalRef.close()}
+    >
+      Close modal
+    </button>
     <p>This is modal content</p>
   </Modal>
 </div>
