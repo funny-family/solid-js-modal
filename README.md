@@ -79,14 +79,16 @@ const { 0: isVisible, 1: setIsVisibleState } = createSignal(false);
       modalRef.showModal();
       setIsVisibleState(true);
     }}
-    onClose={() => {
-      setIsVisibleState(false);
-    }}
   >
     Open modal
   </button>
 
-  <Modal ref={modalRef}>
+  <Modal
+    ref={modalRef}
+    onClose={() => {
+      setIsVisibleState(false);
+    }}
+  >
     <Show when={isVisible} fallback={null}>
       <p>This is modal content</p>
     </Show>
