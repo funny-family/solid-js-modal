@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { Show, createSignal, onMount } from 'solid-js';
-import { Modal } from '../../dist'
-import type { ModalRootElement } from '../../dist'
+import { Modal } from 'solid-js-modal';
+import type  { ModalRootElement } from 'solid-js-modal';
 import './app.styles.css';
 
 export const App: Component = () => {

@@ -4,6 +4,9 @@ dependencies:
   solid-js:
     specifier: ^1.7.6
     version: 1.7.6
+  solid-js-modal:
+    specifier: lib:../dist
+    version: link:lib:../dist
 
 devDependencies:
   solid-devtools:
