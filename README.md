@@ -64,7 +64,7 @@ let modalRef;
   </Modal>
 </div>
 ```
-### User guide
+### User guide:
 The `Modal` component has all the attributes that `HTMLDialogElement` has, except for `open`.
 
 #### Props
