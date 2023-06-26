@@ -64,6 +64,36 @@ let modalRef;
   </Modal>
 </div>
 ```
+
+```tsx
+import { createSignal, Show } from 'solid-js';
+import { Modal } from 'solid-js-modal;'
+// ...
+let modalRef;
+const { 0: isVisible, 1: setIsVisibleState } = createSignal(false);
+// ...
+<div>
+  <button
+    type="button"
+    onClick={() => {
+      modalRef.showModal();
+      setIsVisibleState(true);
+    }}
+    onClose={() => {
+      setIsVisibleState(false);
+    }}
+  >
+    Open modal
+  </button>
+
+  <Modal ref={modalRef}>
+    <Show when={isVisible} fallback={null}>
+      <p>This is modal content</p>
+    </Show>
+  </Modal>
+</div>
+```
+
 ### User guide:
 The `Modal` component has all the attributes that `HTMLDialogElement` has, except for `open`.
 
