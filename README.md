@@ -10,7 +10,7 @@ Simple "dialog" element based "modal" component for Solid-js
 
 ## Quick start
 
-Installation:
+### Installation:
 
 ```bash
 npm i solid-js-modal
@@ -20,7 +20,7 @@ yarn add solid-js-modal
 pnpm add solid-js-modal
 ```
 
-Examples:
+### Examples:
 ```tsx
 import { Modal } from 'solid-js-modal;'
 // ...
@@ -64,10 +64,10 @@ let modalRef;
   </Modal>
 </div>
 ```
-## User guide
+### User guide
 The `Modal` component has all the attributes that `HTMLDialogElement` has, except for `open`.
 
-### Props
+#### Props
 | Prop name | Description | Default value | Example value |
 | --------- | ----------- | ------------- | ------------- |
 | shouldCloseOnBackgroundClick | Allow to close modal on background.click. | true | false |
