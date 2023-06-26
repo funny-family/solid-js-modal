@@ -102,5 +102,5 @@ The `Modal` component has all the attributes that `HTMLDialogElement` has, excep
 #### Props
 | Prop name | Description | Default value | Example value |
 | --------- | ----------- | ------------- | ------------- |
-| shouldCloseOnBackgroundClick | Allow to close modal on background.click. | true | false |
+| shouldCloseOnBackgroundClick | Allow to close modal on background click. | true | false |
 | onOpen | Callback fired the modal is opened. | n/a | `(event) => console.log('open event:', event)`
