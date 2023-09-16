@@ -1,12 +1,16 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   solid-js:
     specifier: ^1.7.6
     version: 1.7.6
   solid-js-modal:
-    specifier: lib:../dist
-    version: link:lib:../dist
+    specifier: file:../solid-js-modal-1.0.1.tgz
+    version: file:../solid-js-modal-1.0.1.tgz(solid-js@1.7.6)
 
 devDependencies:
   solid-devtools:
@@ -1187,3 +1191,14 @@ packages:
   /yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
     dev: true
+
+  file:../solid-js-modal-1.0.1.tgz(solid-js@1.7.6):
+    resolution: {integrity: sha512-sN9MzDOtkDUvrvHXvsqTw8CpF5xQqp80qsKeLh5hozl57Uz8BCAUqBGvEXP29HVYJ4D5PuWHZFV8h2zLW6vw5A==, tarball: file:../solid-js-modal-1.0.1.tgz}
+    id: file:../solid-js-modal-1.0.1.tgz
+    name: solid-js-modal
+    version: 1.0.1
+    peerDependencies:
+      solid-js: ^1.7.6
+    dependencies:
+      solid-js: 1.7.6
+    dev: false
