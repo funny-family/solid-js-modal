@@ -4,6 +4,7 @@ import solidDevtools from 'solid-devtools/vite';
 import path from 'node:path';
 
 export default defineConfig({
+  base: './',
   plugins: [
     solidDevtools({
       autoname: true,
@@ -20,6 +21,7 @@ export default defineConfig({
   ],
   build: {
     target: 'esnext',
+    outDir: path.resolve(__dirname, '../docs'),
   },
   server: {
     port: 6783,
