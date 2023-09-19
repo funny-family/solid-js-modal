@@ -1,7 +1,7 @@
 {
   "name": "solid-js-modal",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Simple \"dialog\" element based \"modal\" component for Solid-js",
   "author": "funny-family <https://github.com/funny-family>",
   "repository": {
