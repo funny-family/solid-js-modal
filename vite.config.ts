@@ -13,7 +13,7 @@ export default defineConfig({
     }),
     solidPlugin({
       include: 'lib/**/*',
-      extensions: ['jsx', 'tsx', 'js', 'ts'],
+      extensions: ['js', 'jsx', 'ts', 'tsx'],
     }),
   ],
   build: {
