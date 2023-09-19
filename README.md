@@ -19,6 +19,8 @@ yarn add solid-js-modal
 pnpm add solid-js-modal
 ```
 
+### [Demo here!](https://funny-family.github.io/solid-js-modal/)
+
 ### Examples:
 ```tsx
 import { Modal } from 'solid-js-modal';
