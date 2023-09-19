@@ -1,7 +1,6 @@
 import type { Component } from 'solid-js';
 import { Show, createSignal, onMount } from 'solid-js';
-import { Modal } from 'solid-js-modal';
-import type  { ModalRootElement } from 'solid-js-modal';
+import { type ModalRootElement, Modal } from './solid-js-modal';
 import './app.styles.css';
 
 export const App: Component = () => {
@@ -55,9 +54,17 @@ export const App: Component = () => {
           Open another modal
         </button>
         <Modal
+          // class="12313213"
           ref={anotherModalRef}
-          shouldCloseOnBackgroundClick={true}
-          onClick={() => setIsAnotherModalHiddenState(false)}
+          shouldCloseOnBackgroundClick
+          onClose={() => {
+            setIsAnotherModalHiddenState(false);
+            console.log('close another modal');
+          }}
+          onClick={() => {
+            console.log('click another modal');
+          }}
+          onOpen={(event) => console.log('open event:', event)}
         >
           <Show when={isAnotherModalHidden()} fallback={null}>
             <div>

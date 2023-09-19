@@ -1,15 +1,9 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import solidDevtools from 'solid-devtools/vite';
+import path from 'node:path';
 
 export default defineConfig({
-  server: {
-    port: 6783,
-    strictPort: true,
-  },
-  build: {
-    target: 'esnext',
-  },
   plugins: [
     solidDevtools({
       autoname: true,
@@ -20,8 +14,15 @@ export default defineConfig({
       },
     }),
     solidPlugin({
-      include: 'src/**/*',
-      extensions: ['jsx', 'tsx', 'js', 'ts'],
+      include: ['src/**/*', path.resolve(__dirname, '../lib/**/*')],
+      extensions: ['js', 'jsx', 'ts', 'tsx'],
     }),
   ],
+  build: {
+    target: 'esnext',
+  },
+  server: {
+    port: 6783,
+    strictPort: true,
+  },
 });
