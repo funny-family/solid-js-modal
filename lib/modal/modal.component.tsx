@@ -12,12 +12,12 @@ export const Modal: ModalComponent = (attrsAndProps) => {
     'onOpen',
   ]);
 
+  const isArray = Array.isArray;
+
   const shouldCloseOnBackgroundClick = () =>
     props?.shouldCloseOnBackgroundClick == null
       ? true
       : props.shouldCloseOnBackgroundClick;
-
-  const attributeName_open = 'open';
 
   let ref = attrs?.ref as ModalRootElement;
 
@@ -37,31 +37,12 @@ export const Modal: ModalComponent = (attrsAndProps) => {
         );
       }
 
-      if (Array.isArray(props.onOpen)) {
+      if (isArray(props.onOpen)) {
         // handler(data, event);
         props.onOpen[0](props.onOpen[1], event);
       }
     }
   };
-
-  const observer = new MutationObserver((mutationRecords) => {
-    const mutationRecord = mutationRecords[0];
-    const attributeName = mutationRecord.attributeName;
-
-    if (
-      mutationRecord.type === 'attributes' &&
-      attributeName === attributeName_open
-    ) {
-      const attributeValue = (mutationRecord.target as Element).getAttribute(
-        attributeName
-      );
-
-      // hacky, hacky stuff (detect if modal open)
-      if (attributeValue === '') {
-        ref.dispatchEvent(openEvent);
-      }
-    }
-  });
 
   const onClick: ModalAttrsAndProps['onClick'] = (event) => {
     if (
@@ -72,6 +53,9 @@ export const Modal: ModalComponent = (attrsAndProps) => {
     ) {
       if (shouldCloseOnBackgroundClick()) {
         ref.close();
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
       }
     }
 
@@ -80,7 +64,7 @@ export const Modal: ModalComponent = (attrsAndProps) => {
         attrs.onClick(event);
       }
 
-      if (Array.isArray(attrs.onClick)) {
+      if (isArray(attrs.onClick)) {
         // handler(data, event);
         attrs.onClick[0](attrs.onClick[1], event);
       }
@@ -88,15 +72,16 @@ export const Modal: ModalComponent = (attrsAndProps) => {
   };
 
   onMount(() => {
-    observer.observe(ref as unknown as Node, {
-      attributes: true,
-      attributeFilter: [attributeName_open],
-    });
+    const showModal = ref.showModal;
+    ref.showModal = function () {
+      showModal.call(this);
+
+      this.dispatchEvent(openEvent);
+    };
     ref.addEventListener('open', onOpen);
   });
 
   onCleanup(() => {
-    observer.disconnect();
     ref.removeEventListener('open', onOpen);
   });
 
