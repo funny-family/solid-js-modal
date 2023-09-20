@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     dts({
       rollupTypes: true,
-      outputDir: path.resolve(__dirname, './dist/types'),
+      outDir: path.resolve(__dirname, './dist/types'),
     }),
     solidPlugin({
       include: 'lib/**/*',
