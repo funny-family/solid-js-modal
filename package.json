@@ -1,38 +1,52 @@
 {
-  "name": "{{name_of_lib}}",
-  "version": "0.0.0",
+  "name": "solid-js-modal",
+  "version": "1.2.0",
   "description": "{{desc_of_lib}}",
   "license": "MIT",
-  "author": "{{me}}",
+  "author": "funny-family",
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/{{me}}/{{name_of_lib}}.git"
+    "url": "git+https://github.com/funny-family/solid-js-modal.git"
   },
-  "homepage": "https://github.com/{{me}}/{{name_of_lib}}#readme",
+  "homepage": "https://github.com/funny-family/solid-js-modal#readme",
   "bugs": {
-    "url": "https://github.com/{{me}}/{{name_of_lib}}/issues"
+    "url": "https://github.com/funny-family/solid-js-modal/issues"
   },
-  "files": [
-    "dist"
-  ],
   "private": false,
-  "sideEffects": false,
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "browser": {},
   "exports": {
-    "import": {
+    ".": {
       "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
-  "typesVersions": {},
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    ".css"
+  ],
+  "keywords": [
+    "solid",
+    "solid js",
+    "solid-js",
+    "solid-js-modal",
+    "modal",
+    "modal window",
+    "dialog",
+    "dialog window",
+    "html"
+  ],
   "scripts": {
     "dev": "vite serve dev",
-    "build": "tsup",
+    "build": "rollup -c",
+    "build:watch": "tsup --watch",
     "test": "concurrently pnpm:test:*",
     "test:client": "vitest",
     "test:ssr": "pnpm run test:client --mode ssr",
@@ -44,9 +58,10 @@
     "update-deps": "pnpm up -Li"
   },
   "peerDependencies": {
-    "solid-js": "^1.6.0"
+    "solid-js": "^1.9.0"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
@@ -58,20 +73,15 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "jsdom": "^24.0.0",
     "prettier": "3.0.0",
+    "rollup": "^4.53.5",
+    "rollup-plugin-import-css": "^4.1.2",
+    "rollup-preset-solid": "^3.0.0",
     "solid-js": "^1.8.17",
     "tsup": "^8.0.2",
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
-    "vite-plugin-solid": "^2.10.2",
+    "vite-plugin-solid": "^2.11.9",
     "vitest": "^1.6.0"
-  },
-  "keywords": [
-    "solid"
-  ],
-  "packageManager": "pnpm@9.1.1",
-  "engines": {
-    "node": ">=18",
-    "pnpm": ">=9.0.0"
   }
 }

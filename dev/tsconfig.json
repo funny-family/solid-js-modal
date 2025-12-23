@@ -1,7 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "types": ["vite/client"]
+    "paths": {
+      "@solid-js-modal": ["../dist/*"]
+    },
+    "types": ["vite/client", "vitest/globals", "node"]
   },
   "exclude": ["node_modules", "dist"]
 }

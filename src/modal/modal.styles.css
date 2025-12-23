@@ -1,0 +1,14 @@
+@layer base {
+  .solid-js-modal {
+    border: none;
+    padding: 0;
+  }
+
+  .solid-js-modal::backdrop {
+    background-color: hsla(0, 0%, 0%, 0.5);
+  }
+
+  .solid-js-modal:focus-visible {
+    outline: none;
+  }
+}
