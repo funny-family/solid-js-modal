@@ -30,12 +30,11 @@
     "dist"
   ],
   "sideEffects": [
-    ".css"
+    "*.css"
   ],
   "keywords": [
     "solid",
     "solid js",
-    "solid-js",
     "solid-js-modal",
     "modal",
     "modal window",
@@ -45,7 +44,7 @@
   ],
   "scripts": {
     "dev": "vite serve dev",
-    "build": "rollup -c",
+    "build": "node ./scripts/build.js",
     "build:watch": "tsup --watch",
     "test": "concurrently pnpm:test:*",
     "test:client": "vitest",
@@ -81,6 +80,7 @@
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-solid": "^2.11.9",
     "vitest": "^1.6.0"
   }

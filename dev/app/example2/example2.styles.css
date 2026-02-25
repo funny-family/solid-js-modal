@@ -4,6 +4,10 @@ table {
   width: 100%;
 }
 
+table tr:hover {
+  background-color: #ebebeb;
+}
+
 td,
 th {
   border: 1px solid #dddddd;
@@ -13,4 +17,34 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.animation {
+  transition:
+    display 0.2s allow-discrete,
+    overlay 0.2s allow-discrete;
+
+  animation: close 0.2s forwards;
+
+  &[open] {
+    animation: open 0.5s forwards;
+  }
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

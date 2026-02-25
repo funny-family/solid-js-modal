@@ -12,7 +12,7 @@ import { isArray } from './utils';
 
 export var ModalExposeSymbol = Symbol('expose');
 
-export var Modal: ModalComponent = attrsAndProps => {
+export const Modal: ModalComponent = attrsAndProps => {
   var splittedProps = splitProps(
     attrsAndProps,
     ['classList', 'ref', '$ServerOnly', 'children'],

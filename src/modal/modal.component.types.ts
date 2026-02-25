@@ -36,7 +36,7 @@ export type ModalProps = {
   shouldCloseOnBackdropClick?: boolean;
   /**
    * @description
-   * Callback fired the modal is opened.
+   * Callback fires then modal is opened.
    */
   onOpen?: JSX.EventHandlerUnion<ModalRef, Event>;
 };

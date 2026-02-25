@@ -79,6 +79,7 @@ export var Example2: Component = () => {
 
       <Modal
         ref={modalRef!}
+        class="animation"
         style="inline-size: 90vw; block-size: 50vh;"
         shouldCloseOnBackdropClick
       >
